@@ -32,17 +32,14 @@ jobs:
 
             # Build the Go application
             echo "Building Go application..."
-            cd andre_kasir_api
             go build -o kasir-api-andre main.go
-            mv kasir-api-andre ../
-            cd ..
 
             # Make binary executable
             chmod +x /home/ubuntu/belajar_golang/kasir-api-andre
 
             # Copy service file to systemd directory
             echo "Setting up systemd service..."
-            sudo cp andre_kasir_api/andre_kasir_api.service /etc/systemd/system/kasir-api-andre.service
+            sudo cp andre_kasir_api.service /etc/systemd/system/kasir-api-andre.service
 
             # Reload systemd daemon
             sudo systemctl daemon-reload
