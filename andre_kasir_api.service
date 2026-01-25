@@ -1,0 +1,20 @@
+[Unit]
+Description=Andre Kasir API Service
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/belajar_golang
+ExecStart=/home/ubuntu/belajar_golang/kasir-api-andre
+Restart=always
+RestartSec=5
+StandardOutput=append:/var/log/andre_kasir_api.log
+StandardError=append:/var/log/andre_kasir_api.error.log
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

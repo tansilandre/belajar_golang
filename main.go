@@ -249,9 +249,9 @@ func main() {
 		})
 	})
 
-	fmt.Println("Server started on :8080")
+	fmt.Println("Server started on :5001")
 
-	err := http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":5001", nil)
 	if err != nil {
 		fmt.Println("Server failed guys", err)
 	}

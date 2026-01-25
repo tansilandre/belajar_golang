@@ -1,0 +1,60 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: 22
+          script: |
+            # Exit immediately if a command exits with a non-zero status
+            set -e
+
+            # Navigate to the project directory
+            cd /home/ubuntu/belajar_golang
+
+            # Fix git safe directory issue
+            git config --global --add safe.directory /home/ubuntu/belajar_golang
+
+            # Pull the latest changes
+            echo "Pulling latest changes..."
+            git stash
+            git pull origin main
+
+            # Build the Go application
+            echo "Building Go application..."
+            cd andre_kasir_api
+            go build -o kasir-api-andre main.go
+            mv kasir-api-andre ../
+            cd ..
+
+            # Make binary executable
+            chmod +x /home/ubuntu/belajar_golang/kasir-api-andre
+
+            # Copy service file to systemd directory
+            echo "Setting up systemd service..."
+            sudo cp andre_kasir_api/andre_kasir_api.service /etc/systemd/system/kasir-api-andre.service
+
+            # Reload systemd daemon
+            sudo systemctl daemon-reload
+
+            # Enable service to start on boot
+            sudo systemctl enable kasir-api-andre
+
+            # Restart the service
+            echo "Restarting service..."
+            sudo systemctl restart kasir-api-andre
+
+            # Check status
+            sudo systemctl status kasir-api-andre --no-pager
+
+            echo "Deployment successful!"
