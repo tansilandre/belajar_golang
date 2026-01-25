@@ -1,6 +1,6 @@
 Tugas Golang Pak Umam
 
-Task #1 25 Jan 2025
+Task #1 pengumpulan 25 Jan 2025 17:00
 
 **Category**
 
