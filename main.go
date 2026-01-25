@@ -249,6 +249,14 @@ func main() {
 		})
 	})
 
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]string{
+			"status":  "200",
+			"message": "Masuk bosq, bisa cek /health /produk /category",
+		})
+	})
+
 	fmt.Println("Server started on :5001")
 
 	err := http.ListenAndServe(":5001", nil)

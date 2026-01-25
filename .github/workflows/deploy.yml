@@ -32,7 +32,7 @@ jobs:
 
             # Build the Go application
             echo "Building Go application..."
-            go build -o kasir-api-andre main.go
+            /usr/local/go/bin/go build -o kasir-api-andre main.go
 
             # Make binary executable
             chmod +x /home/ubuntu/belajar_golang/kasir-api-andre
