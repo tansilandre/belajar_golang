@@ -250,11 +250,7 @@ func main() {
 	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(map[string]string{
-			"status":  "200",
-			"message": "Masuk bosq, bisa cek /health /produk /category",
-		})
+		http.Redirect(w, r, "/health", http.StatusMovedPermanently)
 	})
 
 	fmt.Println("Server started on :5001")
