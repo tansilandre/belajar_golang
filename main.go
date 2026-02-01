@@ -105,7 +105,7 @@ func deleteProduk(w http.ResponseWriter, r *http.Request) {
 }
 
 func getCategoryByID(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/api/category/")
+	idStr := strings.TrimPrefix(r.URL.Path, "/api/categories/")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		http.Error(w, "Invalid Category ID", http.StatusBadRequest)
@@ -125,7 +125,7 @@ func getCategoryByID(w http.ResponseWriter, r *http.Request) {
 
 func updateCategory(w http.ResponseWriter, r *http.Request) {
 
-	idStr := strings.TrimPrefix(r.URL.Path, "/api/category/")
+	idStr := strings.TrimPrefix(r.URL.Path, "/api/categories/")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		http.Error(w, "Invalid Category ID", http.StatusBadRequest)
@@ -155,7 +155,7 @@ func updateCategory(w http.ResponseWriter, r *http.Request) {
 }
 
 func deleteCategory(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/api/category/")
+	idStr := strings.TrimPrefix(r.URL.Path, "/api/categories/")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		http.Error(w, "Invalid Category ID", http.StatusBadRequest)
@@ -209,7 +209,7 @@ func main() {
 
 	})
 
-	http.HandleFunc("/api/category/", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/api/categories/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "GET" {
 			getCategoryByID(w, r)
 		} else if r.Method == "PUT" {
@@ -219,7 +219,7 @@ func main() {
 		}
 	})
 
-	http.HandleFunc("/api/category", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/api/categories", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "GET" {
 			w.Header().Set("Content-Type", "application/json")
 			json.NewEncoder(w).Encode(category)
